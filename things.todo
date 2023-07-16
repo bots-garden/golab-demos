@@ -1,0 +1,2 @@
+- explain wasm shared memory (check ebooks)
+- work on mutex (explain, and explain that I want to reproduce de Node.js event loop)

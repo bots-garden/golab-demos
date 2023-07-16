@@ -5,6 +5,8 @@ use (
   ./02-ready-to-use-host-functions
   ./04-go-host-application
   ./06-first-http-server
+  ./07-second-http-server
+  ./08-better-http-server
 )
 
 

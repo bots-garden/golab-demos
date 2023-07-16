@@ -1,4 +1,4 @@
-module first-http-server
+module second-http-server
 
 go 1.20
 

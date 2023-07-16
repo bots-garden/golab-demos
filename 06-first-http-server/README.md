@@ -1,4 +1,4 @@
-# First HTTP Server
+# First HTTP Server: be careful to the shared memory
 
 ```bash
 curl -v -X POST \
@@ -15,11 +15,4 @@ hey -n 300 -c 100 -m POST \
 "http://localhost:8080" 
 ```
 
-
-
-
-
-
-To be tested
-cargo install oha
-https://github.com/hatoo/oha
+👋 Explain why it fails
