@@ -1,3 +1,4 @@
 *.wasm
 05-hello-rust-plugin/target
 notes.md
+TALK.PLAN.md
