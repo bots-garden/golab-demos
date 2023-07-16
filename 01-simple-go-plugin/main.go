@@ -1,7 +1,5 @@
 package main
 
-// CLI demo
-
 import (
 	"github.com/extism/go-pdk"
 )
