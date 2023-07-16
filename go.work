@@ -1,0 +1,11 @@
+go 1.20
+
+use (
+  ./01-simple-go-plugin
+  ./02-ready-to-use-host-functions
+  ./04-go-host-application
+  ./06-first-http-server
+)
+
+
+// go work sync

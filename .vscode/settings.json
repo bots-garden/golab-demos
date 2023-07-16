@@ -1,0 +1,10 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "terminal.integrated.fontSize": 16,
+    "editor.fontSize": 16,
+    "keyboard.layout": "com.apple.keylayout.French",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+  }
+  
