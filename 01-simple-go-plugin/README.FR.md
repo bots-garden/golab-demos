@@ -35,7 +35,7 @@ Mais voyons comment créer notre premier plugin Wasm.
 
 ## Premier plugin en Go
 
-Commencez par créer un fichier `go.mod` avec la commande `go mod init 01-simple-go-plugin/README.md`, puis un fichier `main.go` avec le contenu suivant :
+Commencez par créer un fichier `go.mod` avec la commande `go mod init simple-go-plugin`, puis un fichier `main.go` avec le contenu suivant :
 
 ```golang
 package main
