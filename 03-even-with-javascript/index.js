@@ -1,6 +1,5 @@
 function say_hello() {
 
-
 	// read function argument from the memory
 	let input = Host.inputString()
 
