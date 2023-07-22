@@ -43,5 +43,6 @@ const start = async () => {
     process.exit(1)
   }
 }
+
 start().then(r => console.log("😄 started"))
 

@@ -25,7 +25,8 @@ function memoryGet(plugin, inputs, outputs, userData) {
   let offs = plugin.memoryAlloc(Buffer.byteLength(returnValue))
   plugin.memory(offs).write(returnValue)
   
-  outputs[0].v.i64 = offs // is it mandatory?
+  //console.log("👋", offs)
+  outputs[0].v.i64 = offs 
 }
 
 // Host functions list
@@ -64,7 +65,7 @@ const start = async () => {
 
   fastify.post('/', opts, async (request, reply) => {
 
-    // Call the WASM function, the request body is the argulent of the function
+    // Call the WASM function, the request body is the argument of the function
     let buf = await plugin.call(functionName, request.body); 
     let result = buf.toString()
 
