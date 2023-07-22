@@ -7,6 +7,7 @@ use (
   ./06-first-http-server
   ./07-second-http-server
   ./08-better-http-server
+  ./12-simple-go-mem-plugin
 )
 
 
