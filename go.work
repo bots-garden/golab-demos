@@ -9,6 +9,7 @@ use (
   ./08-better-http-server
   ./12-simple-go-mem-plugin
   ./09-go-host-functions
+  ./20-go-handler-plugin
 )
 
 
