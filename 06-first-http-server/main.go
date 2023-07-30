@@ -2,12 +2,17 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/extism/extism"
 	"github.com/gofiber/fiber/v2"
-	"net/http"
 )
 
 func main() {
+	wasmFilePath := os.Args[1:][0]
+	wasmFunctionName := os.Args[1:][1]
+	httpPort := os.Args[1:][2]
 
 	ctx := extism.NewContext()
 
@@ -16,7 +21,7 @@ func main() {
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
 			extism.WasmFile{
-				Path: "../05-hello-rust-plugin/target/wasm32-wasi/release/hello_rust_plugin.wasm"},
+				Path: wasmFilePath},
 		},
 	}
 
@@ -25,18 +30,21 @@ func main() {
 		panic(err)
 	}
 
-	httpPort := "8080"
+
+	/*
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
 		DisableKeepalive:      true,
 		Concurrency:           100000,
 	})
+	*/
+	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 
 	app.Post("/", func(c *fiber.Ctx) error {
 
 		params := c.Body()
 
-		out, err := plugin.Call("hello", params)
+		out, err := plugin.Call(wasmFunctionName, params)
 
 		if err != nil {
 			fmt.Println(err)

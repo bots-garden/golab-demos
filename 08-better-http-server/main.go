@@ -31,9 +31,11 @@ func GetPlugin() (extism.Plugin, error) {
 
 
 func main() {
-	
+	wasmFilePath := os.Args[1:][0]
+	wasmFunctionName := os.Args[1:][1]
+	httpPort := os.Args[1:][2]
 
-	var counter = 0
+	//var counter = 0
 
 	ctx := extism.NewContext()
 
@@ -42,7 +44,7 @@ func main() {
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
 			extism.WasmFile{
-				Path: "../05-hello-rust-plugin/target/wasm32-wasi/release/hello_rust_plugin.wasm"},
+				Path: wasmFilePath},
 		},
 	}
 
@@ -61,13 +63,15 @@ func main() {
 
 	StorePlugin(plugin)
 	
-
-	httpPort := "8080"
+	/*
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
 		DisableKeepalive:      true,
 		Concurrency:           100000,
 	})
+	*/
+
+	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 
 	app.Post("/", func(c *fiber.Ctx) error {
 
@@ -89,13 +93,13 @@ func main() {
 		plugin, err := GetPlugin()
 
 		if err != nil {
-			log.Println("🔴 !!! Error when loading the plugin", err)
+			log.Println("🔴 !!! Error when getting the plugin", err)
 			c.Status(http.StatusInternalServerError)
 			return c.SendString(err.Error())
 		}
 		
 
-		out, err := plugin.Call("hello", params)
+		out, err := plugin.Call(wasmFunctionName, params)
 
 		if err != nil {
 			fmt.Println(err)
@@ -104,8 +108,8 @@ func main() {
 			//os.Exit(1)
 		} else {
 			c.Status(http.StatusOK)
-			fmt.Println(counter, string(out))
-			counter ++
+			//fmt.Println(counter, string(out))
+			//counter ++
 			return c.SendString(string(out))
 		}
 

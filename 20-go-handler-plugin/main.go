@@ -12,4 +12,6 @@ func handle() {
 	})
 }
 
-func main() {}
+func main() {
+
+}

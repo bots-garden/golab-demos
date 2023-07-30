@@ -1,5 +1,6 @@
 import { setHandler } from "./core/receiver"
 
+// change this to `main`
 function handle() {
 	
 	setHandler(param => {

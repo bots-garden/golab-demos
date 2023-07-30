@@ -1,7 +1,8 @@
 #!/bin/bash
 extism call ./simple.wasm \
-  handle --input "Lisa" \
+  _start --input "Bob Morane" \
   --wasi
 
 echo ""
 
+# _start allows to call the main function
