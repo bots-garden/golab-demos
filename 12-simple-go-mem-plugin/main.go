@@ -6,7 +6,7 @@ import (
 )
 
 //export hostMemoryGet
-func hostMemoryGet(x uint64) uint64
+func hostMemoryGet(offset uint64) uint64
 
 //export say_hello
 func say_hello() int32 {
@@ -47,7 +47,7 @@ func say_hello() int32 {
 	mem2.Load(buffMem2)
 
 	data := []string{
-		"👋 Hello " + string(input),
+		"message: " + string(input),
 		"key: hello, value: " + string(buffMem1),
 		"key: message, value: " + string(buffMem2),
 	}

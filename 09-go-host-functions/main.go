@@ -1,59 +1,29 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"unsafe"
+
 	"github.com/extism/extism"
+	"github.com/tetratelabs/wazero"
+	"github.com/tetratelabs/wazero/api"
 )
 
-/*
-#include <extism.h>
-EXTISM_GO_FUNCTION(memory_get);
-*/
-import "C"
-
 var memoryMap = map[string]string{
-	"hello": "👋 Hello World 🌍",
+	"hello":   "👋 Hello World 🌍",
 	"message": "I 💜 Extism 😍",
-}
-
-//export memory_get
-func memory_get(plugin unsafe.Pointer, inputs *C.ExtismVal, nInputs C.ExtismSize, outputs *C.ExtismVal, nOutputs C.ExtismSize, userData uintptr) {
-
-	inputSlice := unsafe.Slice(inputs, nInputs)
-	outputSlice := unsafe.Slice(outputs, nOutputs)
-
-	// Get memory pointed to by first element of input slice
-	currentPlugin := extism.GetCurrentPlugin(plugin)
-	keyStr := currentPlugin.InputString(unsafe.Pointer(&inputSlice[0]))
-
-	returnValue := memoryMap[keyStr]
-
-	currentPlugin.ReturnString(unsafe.Pointer(&outputSlice[0]), returnValue)
-
-	//outputSlice[0] = inputSlice[0]
-
 }
 
 func main() {
 
-	// Function is used to define host functions
-
-	hostFunctions := []extism.Function{
-		extism.NewFunction(
-			"hostMemoryGet",
-			[]extism.ValType{extism.I64},
-			[]extism.ValType{extism.I64},
-			C.memory_get,
-			"",
-		),
-	}
-
-	ctx := extism.NewContext()
-
-	defer ctx.Free() // this will free the context and all associated plugins
+	ctx := context.Background() // new
 
 	path := "../12-simple-go-mem-plugin/simple.wasm"
+
+	config := extism.PluginConfig{
+		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
+		EnableWasi:   true,
+	}
 
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
@@ -61,24 +31,48 @@ func main() {
 				Path: path},
 		}}
 
-	plugin, err := ctx.PluginFromManifest(
-		manifest,
-		hostFunctions,
-		true,
-	)
-	/*
-	plugin, err := ctx.PluginFromManifest(
-		manifest,
-		[]extism.Function{},
-		true,
-	)
-	*/
+	memory_get := extism.HostFunction{
+		Name:      "hostMemoryGet",
+		Namespace: "env",
+		Callback: func(ctx context.Context, plugin *extism.CurrentPlugin, userData interface{}, stack []uint64) {
+
+			offset := stack[0]
+			bufferInput, err := plugin.ReadBytes(offset)
+
+			if err != nil {
+				fmt.Println("🥵", err.Error())
+				panic(err)
+			}
+
+			keyStr := string(bufferInput)
+			fmt.Println("🟢 keyStr:", keyStr)
+
+			returnValue := memoryMap[keyStr]
+
+			plugin.Free(offset)
+			offset, err = plugin.WriteBytes([]byte(returnValue))
+			if err != nil {
+				fmt.Println("😡", err.Error())
+				panic(err)
+			}
+
+			stack[0] = offset
+		},
+		Params:  []api.ValueType{api.ValueTypeI64},
+		Results: []api.ValueType{api.ValueTypeI64},
+	}
+
+	hostFunctions := []extism.HostFunction{
+		memory_get,
+	}
+
+	pluginInst, err := extism.NewPlugin(ctx, manifest, config, hostFunctions)
 
 	if err != nil {
 		panic(err)
 	}
 
-	res, err := plugin.Call(
+	_, res, err := pluginInst.Call(
 		"say_hello",
 		[]byte("👋 Hello from the Go Host app 🤗"),
 	)

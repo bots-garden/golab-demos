@@ -10,6 +10,16 @@ use (
   ./12-simple-go-mem-plugin
   ./09-go-host-functions
   ./20-go-handler-plugin
+
+  ./go-sdk
+  ./go-sdk/plugins/config
+  ./go-sdk/plugins/exit
+  ./go-sdk/plugins/fs
+  ./go-sdk/plugins/host
+  ./go-sdk/plugins/http
+  ./go-sdk/plugins/log
+  ./go-sdk/plugins/sleep
+  ./go-sdk/plugins/var
 )
 
 

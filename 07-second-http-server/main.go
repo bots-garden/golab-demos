@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/extism/extism"
 	"github.com/gofiber/fiber/v2"
+	"github.com/tetratelabs/wazero"
 )
 
 func main() {
@@ -17,9 +19,12 @@ func main() {
 
 	//var counter = 0
 
-	ctx := extism.NewContext()
+	ctx := context.Background()
 
-	defer ctx.Free() // this will free the context and all associated plugins
+	config := extism.PluginConfig{
+		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
+		EnableWasi:   true,
+	}
 
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
@@ -29,7 +34,7 @@ func main() {
 	}
 
 	/*
-		plugin, err := ctx.PluginFromManifest(manifest, []extism.Function{}, true)
+		pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
 		if err != nil {
 			panic(err)
 		}
@@ -48,14 +53,14 @@ func main() {
 
 		params := c.Body()
 
-		plugin, err := ctx.PluginFromManifest(manifest, []extism.Function{}, true)
+		pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
 		if err != nil {
 			fmt.Println(err)
 			c.Status(http.StatusConflict)
 			return c.SendString(err.Error())
 		}
 
-		out, err := plugin.Call(wasmFunctionName, params)
+		_, out, err := pluginInst.Call(wasmFunctionName, params)
 
 		if err != nil {
 			fmt.Println(err)
