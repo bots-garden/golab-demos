@@ -8,3 +8,7 @@ node_modules
 22-js-handler-plugin/dist
 docker-xp
 go-sdk
+go.work
+go.work.*
+
+
