@@ -1,14 +1,9 @@
 *.wasm
 05-hello-rust-plugin/target
-notes.md
-TALK.PLAN.md
-wasmstore-install/wasmstore
 node_modules
 22-js-handler-plugin/.cache
 22-js-handler-plugin/dist
-docker-xp
 go-sdk
-go.work
-go.work.*
+
 
 
