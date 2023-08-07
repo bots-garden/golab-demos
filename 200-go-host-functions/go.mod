@@ -1,4 +1,4 @@
-module go-host-application-host-function
+module go-host-function
 
 go 1.20
 

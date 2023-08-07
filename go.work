@@ -19,6 +19,8 @@ use (
 	./go-sdk/plugins/log
 	./go-sdk/plugins/sleep
 	./go-sdk/plugins/var
+	./100-go-plugin
+	./200-go-host-functions
 )
 
 // go work sync

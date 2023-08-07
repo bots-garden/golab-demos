@@ -1,4 +1,4 @@
-module simple-go-mem-plugin
+module go-plugin
 
 go 1.20
 
