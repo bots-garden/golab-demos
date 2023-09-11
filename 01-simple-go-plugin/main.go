@@ -10,7 +10,7 @@ func say_hello() int32 {
 	// read function argument from the memory
 	input := pdk.Input()
 
-	pdk.Log(pdk.LogInfo, "😀😃😄")
+	//pdk.Log(pdk.LogInfo, "😀😃😄")
 
 	output := "👋 (From Go) Hello " + string(input)
 
