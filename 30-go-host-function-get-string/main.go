@@ -9,16 +9,14 @@ import (
 	"github.com/tetratelabs/wazero/api"
 )
 
-var memoryMap = map[string]string{
-	"hello":   "👋 Hello World 🌍",
-	"message": "I 💜 Extism 😍",
-}
+
+var extismMessage = "I 💜 Extism"
 
 func main() {
 
 	ctx := context.Background() // new
 
-	path := "../12-simple-go-mem-plugin/simple.wasm"
+	path := "../40-simple-go-plugin/simple.wasm"
 
 	config := extism.PluginConfig{
 		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
@@ -34,44 +32,31 @@ func main() {
 	}
 	
 
-	memory_get := extism.NewHostFunctionWithStack(
-		"hostMemoryGet",
+	get_string := extism.NewHostFunctionWithStack(
+		"hostGetString",
 		"env",
 		func(ctx context.Context, plugin *extism.CurrentPlugin , stack []uint64) {
 
-			// Read the value put in memory by the wasm module
-			offset := stack[0]
-			bufferInput, err := plugin.ReadBytes(offset)
-
-			if err != nil {
-				fmt.Println("🥵", err.Error())
-				panic(err)
-			}
-
-			// Decode the value to string
-			keyStr := string(bufferInput)
-			fmt.Println("🟢 keyStr:", keyStr)
-
 			// Read the value from the map
-			returnValue := memoryMap[keyStr]
+			returnValue := extismMessage
 
-			plugin.Free(offset)
-
-			// write the string result into memory
-			offset, err = plugin.WriteBytes([]byte(returnValue))
+			// Write the string result into memory
+			offset, err := plugin.WriteBytes([]byte(returnValue))
 			if err != nil {
 				fmt.Println("😡", err.Error())
 				panic(err)
 			}
-
+			// The only way to share data is via writing memory 
+			// and sharing offsets (containing pos and length of the data)
+			// Return the offset of the string (position and size)
 			stack[0] = offset
 		},
-		[]api.ValueType{api.ValueTypeI64},
-		api.ValueTypeI64,
+		nil, // no parameters (before []api.ValueType{api.ValueTypeI64})
+		api.ValueTypeI64, // offset
 	)
 
 	hostFunctions := []extism.HostFunction{
-		memory_get,
+		get_string,
 	}
 
 	pluginInst, err := extism.NewPlugin(ctx, manifest, config, hostFunctions)
@@ -82,14 +67,12 @@ func main() {
 
 	_, res, err := pluginInst.Call(
 		"say_hello",
-		[]byte("👋 Hello from the Go Host app 🤗"),
+		nil, // []byte("👋 Hello from the Go Host app 🤗")
 	)
 
 	if err != nil {
 		fmt.Println("😡", err)
-		//os.Exit(1)
 	} else {
-		//fmt.Println("🙂", res)
-		fmt.Println("🙂", string(res))
+		fmt.Println(string(res))
 	}
 }

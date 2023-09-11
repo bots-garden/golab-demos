@@ -21,6 +21,11 @@ use (
 	./go-sdk/plugins/var
 	./100-go-plugin
 	./200-go-host-functions
+
+	./30-go-host-function-get-string
+	./31-go-host-function-print
+	./40-simple-go-plugin
+	./41-simple-go-plugin
 )
 
 // go work sync
