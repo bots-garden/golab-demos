@@ -26,6 +26,8 @@ use (
 	./31-go-host-function-print
 	./40-simple-go-plugin
 	./41-simple-go-plugin
+
+	./minism
 )
 
 // go work sync
