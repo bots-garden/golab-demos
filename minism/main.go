@@ -71,6 +71,16 @@ func execute(wasmFilePath string, wasmFunctionName string, input string, logLeve
 
 }
 
+/*
+go run main.go \
+call ../01-simple-go-plugin/simple.wasm \
+say_hello \
+  --input "Bob Morane" \
+  --log-level info \
+  --allow-hosts *,*.google.com,yo.com \
+
+*/
+
 func parseCommand(command string, args []string) error {
 	//fmt.Println("Command:", command)
 	//fmt.Println("Args:", args)
