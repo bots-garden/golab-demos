@@ -10,7 +10,7 @@ func say_hello() int32 {
 	// read function argument from the memory
 	input := pdk.Input()
 
-	output := "👋 Hello " + string(input)
+	output := "👋 (From Go) Hello " + string(input)
 
 	mem := pdk.AllocateString(output)
 	// copy output to host memory

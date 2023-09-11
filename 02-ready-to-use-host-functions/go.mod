@@ -3,6 +3,6 @@ module ready-to-use-host-functions
 go 1.20
 
 require (
-	github.com/extism/go-pdk v0.0.0-20230119214914-65bffbeb3e64
-	github.com/valyala/fastjson v1.6.3
+	github.com/extism/go-pdk v0.0.0-20230816024928-ee09fee7466e
+	github.com/valyala/fastjson v1.6.4
 )

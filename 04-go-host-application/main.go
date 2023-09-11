@@ -3,57 +3,56 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"github.com/extism/extism"
 	"github.com/tetratelabs/wazero"
 )
 
 func main() {
+	//argsWithProg := os.Args
+	args := os.Args[1:]
+	wasmFilePath := args[0]
+	functionName := args[1]
+	input := args[2]
 
-	//ctx := extism.NewContext()
 	ctx := context.Background()
 
-	//defer ctx.Free() // this will free the context and all associated plugins
 	config := extism.PluginConfig{
 		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
 		EnableWasi:   true,
 	}
 
-	//path := "../03-even-with-javascript/hello-js.wasm"
-	path := "../01-simple-go-plugin/simple.wasm"
-
 	manifest := extism.Manifest{
 		Wasm: []extism.Wasm{
 			extism.WasmFile{
-				Path: path},
-		}}
-	
-	/*
-	plugin, err := ctx.PluginFromManifest(
-		manifest,
-		[]extism.Function{},
-		true,
-	)
-	*/
+				Path: wasmFilePath},
+		},
+		AllowedHosts:  []string{"*"}, 
+		/*
+			HTTP calls are disallowed by default. 
+			If you want to enable HTTP you need 
+			to specify the hosts that the plug-in is allowed 
+			to communicate with. 
+		*/
+	}
 
-	pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
-
+	pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil)
 
 	if err != nil {
 		panic(err)
 	}
 
 	_, res, err := pluginInst.Call(
-		"say_hello",
-		[]byte("👋 Hello from the Go Host app 🤗"),
+		functionName,
+		[]byte(input),
 	)
 
 	if err != nil {
-		fmt.Println("😡", err)
+		fmt.Println(err)
 		//os.Exit(1)
 	} else {
-		//fmt.Println("🙂", res)
-		fmt.Println("🙂", string(res))
+		fmt.Println(string(res))
 	}
 
 }

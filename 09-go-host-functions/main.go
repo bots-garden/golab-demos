@@ -30,11 +30,12 @@ func main() {
 			extism.WasmFile{
 				Path: path},
 		}}
+	
 
-	memory_get := extism.HostFunction{
-		Name:      "hostMemoryGet",
-		Namespace: "env",
-		Callback: func(ctx context.Context, plugin *extism.CurrentPlugin, userData interface{}, stack []uint64) {
+	memory_get := extism.NewHostFunctionWithStack(
+		"hostMemoryGet",
+		"env",
+		func(ctx context.Context, plugin *extism.CurrentPlugin , stack []uint64) {
 
 			offset := stack[0]
 			bufferInput, err := plugin.ReadBytes(offset)
@@ -58,9 +59,9 @@ func main() {
 
 			stack[0] = offset
 		},
-		Params:  []api.ValueType{api.ValueTypeI64},
-		Results: []api.ValueType{api.ValueTypeI64},
-	}
+		[]api.ValueType{api.ValueTypeI64},
+		api.ValueTypeI64,
+	)
 
 	hostFunctions := []extism.HostFunction{
 		memory_get,

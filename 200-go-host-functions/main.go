@@ -26,10 +26,10 @@ func main() {
 				Path: path},
 		}}
 
-	print_message := extism.HostFunction{
-		Name:      "hostPrintMessage",
-		Namespace: "env",
-		Callback: func(ctx context.Context, plugin *extism.CurrentPlugin, userData interface{}, stack []uint64) {
+	print_message := extism.NewHostFunctionWithStack(
+		"hostPrintMessage",
+		"env",
+		func(ctx context.Context, plugin *extism.CurrentPlugin, stack []uint64) {
 
 			offset := stack[0]
 			bufferInput, err := plugin.ReadBytes(offset)
@@ -44,14 +44,14 @@ func main() {
 
 			stack[0] = 0
 		},
-		Params:  []api.ValueType{api.ValueTypeI64},
-		Results: []api.ValueType{api.ValueTypeI64},
-	}
+		[]api.ValueType{api.ValueTypeI64},
+		api.ValueTypeI64,
+	)
 
-	display_message := extism.HostFunction{
-		Name:      "hostDisplayMessage",
-		Namespace: "env",
-		Callback: func(ctx context.Context, plugin *extism.CurrentPlugin, userData interface{}, stack []uint64) {
+	display_message := extism.NewHostFunctionWithStack(
+		"hostDisplayMessage",
+		"env",
+		func(ctx context.Context, plugin *extism.CurrentPlugin, stack []uint64) {
 
 			offset := stack[0]
 			bufferInput, err := plugin.ReadBytes(offset)
@@ -66,9 +66,9 @@ func main() {
 
 			stack[0] = 0
 		},
-		Params:  []api.ValueType{api.ValueTypeI64},
-		Results: []api.ValueType{api.ValueTypeI64},
-	}
+		[]api.ValueType{api.ValueTypeI64},
+		api.ValueTypeI64,
+	)
 
 	hostFunctions := []extism.HostFunction{
 		print_message,
