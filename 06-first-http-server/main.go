@@ -16,11 +16,9 @@ func main() {
 	wasmFunctionName := os.Args[1:][1]
 	httpPort := os.Args[1:][2]
 
-	//ctx := extism.NewContext()
 	ctx := context.Background()
 
 	//defer ctx.Free() // this will free the context and all associated plugins
-
 	config := extism.PluginConfig{
 		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
 		EnableWasi:   true,
@@ -31,22 +29,16 @@ func main() {
 			extism.WasmFile{
 				Path: wasmFilePath},
 		},
+		AllowedHosts:  []string{"*"}, 
 	}
 
-	//plugin, err := ctx.PluginFromManifest(manifest, []extism.Function{}, true)
-	pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
+	pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil)
 
 	if err != nil {
 		panic(err)
 	}
 
-	/*
-		app := fiber.New(fiber.Config{
-			DisableStartupMessage: true,
-			DisableKeepalive:      true,
-			Concurrency:           100000,
-		})
-	*/
+
 	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 
 	app.Post("/", func(c *fiber.Ctx) error {

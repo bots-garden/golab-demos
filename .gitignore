@@ -5,5 +5,4 @@ node_modules
 22-js-handler-plugin/dist
 go-sdk
 
-
-
+21-rust-handler-plugin/target

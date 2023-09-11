@@ -20,12 +20,10 @@ var m sync.Mutex
 var plugins = make(map[string]*extism.Plugin)
 
 func StorePlugin(plugin *extism.Plugin) {
-	// store all your plugins in a normal Go hash map, protected by a Mutex
 	plugins["code"] = plugin
 }
 
 func GetPlugin() (extism.Plugin, error) {
-
 	if plugin, ok := plugins["code"]; ok {
 		return *plugin, nil
 	} else {
@@ -37,8 +35,6 @@ func main() {
 	wasmFilePath := os.Args[1:][0]
 	wasmFunctionName := os.Args[1:][1]
 	httpPort := os.Args[1:][2]
-
-	//var counter = 0
 
 	ctx := context.Background()
 
@@ -52,14 +48,8 @@ func main() {
 			extism.WasmFile{
 				Path: wasmFilePath},
 		},
+		AllowedHosts:  []string{"*"}, 
 	}
-
-	/*
-		plugin, err := ctx.PluginFromManifest(manifest, []extism.Function{}, true)
-		if err != nil {
-			panic(err)
-		}
-	*/
 
 	pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
 	if err != nil {
@@ -76,16 +66,8 @@ func main() {
 
 		params := c.Body()
 
-		/*
-			pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
-			if err != nil {
-				fmt.Println(err)
-				c.Status(http.StatusConflict)
-				return c.SendString(err.Error())
-			}
-		*/
 		m.Lock()
-		// don't forget to release the lock on the Mutex, sometimes its best to `defer m.Unlock()` right after yout get the lock
+		// don't forget to release the lock on the Mutex
 		defer m.Unlock()
 
 		pluginInst, err := GetPlugin()
@@ -102,11 +84,9 @@ func main() {
 			fmt.Println(err)
 			c.Status(http.StatusConflict)
 			return c.SendString(err.Error())
-			//os.Exit(1)
 		} else {
 			c.Status(http.StatusOK)
-			//fmt.Println(counter, string(out))
-			//counter ++
+
 			return c.SendString(string(out))
 		}
 

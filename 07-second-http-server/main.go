@@ -17,13 +17,12 @@ func main() {
 	wasmFunctionName := os.Args[1:][1]
 	httpPort := os.Args[1:][2]
 
-	//var counter = 0
-
 	ctx := context.Background()
 
 	config := extism.PluginConfig{
 		ModuleConfig: wazero.NewModuleConfig().WithSysWalltime(),
 		EnableWasi:   true,
+		
 	}
 
 	manifest := extism.Manifest{
@@ -31,22 +30,9 @@ func main() {
 			extism.WasmFile{
 				Path: wasmFilePath},
 		},
+		AllowedHosts:  []string{"*"}, 
 	}
 
-	/*
-		pluginInst, err := extism.NewPlugin(ctx, manifest, config, nil) // new
-		if err != nil {
-			panic(err)
-		}
-	*/
-
-	/*
-		app := fiber.New(fiber.Config{
-			DisableStartupMessage: true,
-			DisableKeepalive:      true,
-			Concurrency:           100000,
-		})
-	*/
 	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 
 	app.Post("/", func(c *fiber.Ctx) error {
@@ -66,11 +52,8 @@ func main() {
 			fmt.Println(err)
 			c.Status(http.StatusConflict)
 			return c.SendString(err.Error())
-			//os.Exit(1)
 		} else {
 			c.Status(http.StatusOK)
-			//fmt.Println(counter, string(out))
-			//counter ++
 			return c.SendString(string(out))
 		}
 
