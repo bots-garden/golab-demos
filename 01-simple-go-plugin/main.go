@@ -5,20 +5,26 @@ import (
 )
 
 //export say_hello
-func say_hello() int32 {
+func say_hello()  {
 
 	// read function argument from the memory
 	input := pdk.Input()
 
-	//pdk.Log(pdk.LogInfo, "😀😃😄")
+	pdk.Log(pdk.LogInfo, "👋 Hello GoLab 2023 💜")
 
-	output := "👋 (From Go) Hello " + string(input)
+	firstName, _ := pdk.GetConfig("firstName")
+	lastName, _ := pdk.GetConfig("lastName")
 
-	mem := pdk.AllocateString(output)
+	pdk.Log(pdk.LogInfo, firstName)
+	pdk.Log(pdk.LogInfo, lastName)
+
+	output := "👋 (From Tinygo) " + string(input)
+
 	// copy output to host memory
+	mem := pdk.AllocateString(output)
 	pdk.OutputMemory(mem)
 
-	return 0
 }
 
 func main() {}
+

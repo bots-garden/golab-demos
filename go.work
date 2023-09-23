@@ -1,15 +1,16 @@
 go 1.20
 
 use (
+	./00-hello-world
 	./01-simple-go-plugin
 	./02-ready-to-use-host-functions
-	./04-go-host-application
-	./06-first-http-server
-	./07-second-http-server
-	./08-better-http-server
-	./09-go-host-functions
-	./12-simple-go-mem-plugin
-	./20-go-handler-plugin
+	./05-go-host-application
+	./backups/06-first-http-server
+	./backups/07-second-http-server
+	./06-http-server
+	./backups/09-go-host-functions
+	./backups/12-simple-go-mem-plugin
+	./backups/20-go-handler-plugin
 	./go-sdk
 	./go-sdk/plugins/config
 	./go-sdk/plugins/exit
@@ -19,15 +20,15 @@ use (
 	./go-sdk/plugins/log
 	./go-sdk/plugins/sleep
 	./go-sdk/plugins/var
-	./100-go-plugin
-	./200-go-host-functions
+	
+	./07-host-function
+	./08-go-plugin
 
-	./30-go-host-function-get-string
-	./31-go-host-function-print
-	./40-simple-go-plugin
-	./41-simple-go-plugin
+	./backups/30-go-host-function-get-string
+	./backups/31-go-host-function-print
+	./backups/40-simple-go-plugin
+	./backups/41-simple-go-plugin
 
-	./minism
 )
 
 // go work sync

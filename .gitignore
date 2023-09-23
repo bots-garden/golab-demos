@@ -1,8 +1,9 @@
 *.wasm
-05-hello-rust-plugin/target
+04-hello-rust-plugin/target
+09-rust-plugin/target
 node_modules
-22-js-handler-plugin/.cache
-22-js-handler-plugin/dist
+backups/22-js-handler-plugin/.cache
+backups/22-js-handler-plugin/dist
 go-sdk
 
-21-rust-handler-plugin/target
+backups/21-rust-handler-plugin/target

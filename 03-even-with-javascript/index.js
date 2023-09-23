@@ -8,7 +8,6 @@ function say_hello() {
 	// copy output to host memory
 	Host.outputString(output)
 
-	return 0
 }
 
 module.exports = {say_hello}
