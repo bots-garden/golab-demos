@@ -28,28 +28,28 @@ func main() {
 			extism.WasmFile{Path: wasmFilePath},
 	}}
 
+	robotMessage := func(ctx context.Context, plugin *extism.CurrentPlugin, stack []uint64) {
+		offset := stack[0]
+		bufferInput, err := plugin.ReadBytes(offset)
+
+		if err != nil {
+			fmt.Println(err.Error())
+			panic(err)
+		}
+
+		message := string(bufferInput)
+		fmt.Println("🤖:>", message)
+
+		stack[0] = 0
+	}
+
 	robot_message := extism.NewHostFunctionWithStack(
 		"hostRobotMessage",
 		"env",
-		func(ctx context.Context, plugin *extism.CurrentPlugin, stack []uint64) {
-
-			offset := stack[0]
-			bufferInput, err := plugin.ReadBytes(offset)
-
-			if err != nil {
-				fmt.Println(err.Error())
-				panic(err)
-			}
-
-			message := string(bufferInput)
-			fmt.Println("🤖:>", message)
-
-			stack[0] = 0
-		},
+		robotMessage,
 		[]api.ValueType{api.ValueTypeI64},
 		api.ValueTypeI64,
 	)
-
 
 	hostFunctions := []extism.HostFunction{
 		robot_message,

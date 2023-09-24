@@ -4,7 +4,6 @@ import (
 	"github.com/extism/go-pdk"
 )
 
-
 //export hostRobotMessage
 func hostRobotMessage(offset uint64) uint64
 
@@ -20,6 +19,5 @@ func say_hello() {
 	RobotMessage("hello " + string(input))
 
 }
-
 
 func main() {}
