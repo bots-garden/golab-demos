@@ -1,6 +1,6 @@
 module simple-go-plugin
 
-go 1.20
+go 1.21.1
 
 require github.com/extism/go-pdk v0.0.0-20230119214914-65bffbeb3e64
 

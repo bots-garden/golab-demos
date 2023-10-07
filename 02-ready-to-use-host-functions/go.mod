@@ -1,6 +1,6 @@
 module ready-to-use-host-functions
 
-go 1.20
+go 1.21.1
 
 require (
 	github.com/extism/go-pdk v0.0.0-20230816024928-ee09fee7466e

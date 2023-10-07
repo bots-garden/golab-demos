@@ -7,4 +7,6 @@ backups/22-js-handler-plugin/dist
 go-sdk
 backups/21-rust-handler-plugin/target
 .DS_Store
+snippets
+snippets_
 

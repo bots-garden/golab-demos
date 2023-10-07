@@ -1,4 +1,4 @@
-go 1.20
+go 1.21.1
 
 use (
 	./00-hello-world
@@ -28,6 +28,8 @@ use (
 	./backups/31-go-host-function-print
 	./backups/40-simple-go-plugin
 	./backups/41-simple-go-plugin
+
+	./snippets
 
 )
 
