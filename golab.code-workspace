@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "golab-demos",
+			"path": "/Users/k33g/vms-orbstack/golab-2023/golab-demos"
+		},
+		{
+			"name": "demos",
+			"path": "/Users/k33g/vms-orbstack/golab-2023/golab-demos/demos"
+		}
+	],
+	"settings": {
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorTheme": "Cobalt2",
+		"terminal.integrated.fontSize": 16,
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 1000
+	}
+}

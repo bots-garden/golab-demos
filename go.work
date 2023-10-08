@@ -29,8 +29,6 @@ use (
 	./backups/40-simple-go-plugin
 	./backups/41-simple-go-plugin
 
-	./snippets
-
 )
 
 // go work sync

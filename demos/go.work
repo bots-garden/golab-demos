@@ -1,0 +1,11 @@
+go 1.21.1
+
+use (
+	./01-first-wasm-program
+	./02-wazero/cli
+	./02-wazero/function
+
+
+)
+
+// go work sync
