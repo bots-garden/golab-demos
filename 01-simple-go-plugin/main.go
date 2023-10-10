@@ -15,8 +15,8 @@ func say_hello()  {
 	firstName, _ := pdk.GetConfig("firstName")
 	lastName, _ := pdk.GetConfig("lastName")
 
-	pdk.Log(pdk.LogInfo, firstName)
-	pdk.Log(pdk.LogInfo, lastName)
+	pdk.Log(pdk.LogInfo, "📝" + firstName)
+	pdk.Log(pdk.LogInfo, "📝" + lastName)
 
 	output := "👋 (From Tinygo) " + string(input)
 
