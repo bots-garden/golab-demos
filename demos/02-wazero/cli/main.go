@@ -1,5 +1,5 @@
 package main
-
+// wz
 func main() {
 
   // ☑️ 1- Create instance of a wazero runtime

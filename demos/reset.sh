@@ -16,7 +16,7 @@ EOM
 
 cat > ./02-wazero/cli/main.go <<- EOM
 package main
-
+// wz
 func main() {
 
   // ☑️ 1- Create instance of a wazero runtime

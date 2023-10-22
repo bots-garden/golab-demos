@@ -5,13 +5,17 @@
 			"path": "/Users/k33g/vms-orbstack/golab-2023/golab-demos"
 		},
 		{
+			"name": "kong-demo",
+			"path": "/Users/k33g/vms-orbstack/golab-2023/golab-demos/kong-demo"
+		},
+		{
 			"name": "demos",
 			"path": "/Users/k33g/vms-orbstack/golab-2023/golab-demos/demos"
 		}
 	],
 	"settings": {
 		"workbench.iconTheme": "material-icon-theme",
-		"workbench.colorTheme": "Cobalt2",
+		"workbench.colorTheme": "GitHub Light Monochrome Focused",
 		"terminal.integrated.fontSize": 18,
 		"files.autoSave": "afterDelay",
 		"files.autoSaveDelay": 1000
