@@ -4,6 +4,5 @@ package main
   - hello function
 */
 
-
 func main() {}
 

@@ -1,5 +1,5 @@
 package main
-
+// go
 
 //export say_hello
 func say_hello() {

@@ -27,8 +27,10 @@
   },
   "read config string": {
     "body": [
-      "// {\"route\":\"https://jsonplaceholder.typicode.com/todos/1\"}",
-      "url, _ := pdk.GetConfig(\"route\")",
+      "// {\"url\":\"https://jsonplaceholder.typicode.com/todos/1\"}",
+      "url, _ := pdk.GetConfig(\"url\")",
+      "// display input",
+      "pdk.Log(pdk.LogInfo, \"🌍\" + url)",
       ""
     ],
     "description": "read config string",

@@ -20,8 +20,10 @@ snippet read config:
   description: "read config string"
   scope: "go"
   body: |
-    // {"route":"https://jsonplaceholder.typicode.com/todos/1"}
-    url, _ := pdk.GetConfig("route")
+    // {"url":"https://jsonplaceholder.typicode.com/todos/1"}
+    url, _ := pdk.GetConfig("url")
+    // display input
+    pdk.Log(pdk.LogInfo, "🌍" + url)
 
 snippet http request:
   prefix: "go-03-http-request"

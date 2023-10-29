@@ -23,10 +23,10 @@
       "  bufferPtr := \u0026buffer[0]",
       "  unsafePtr := uintptr(unsafe.Pointer(bufferPtr))",
       "",
-      "  ptr := uint32(unsafePtr)",
+      "  pos := uint32(unsafePtr)",
       "  size := uint32(len(buffer))",
       "",
-      "  return (uint64(ptr) \u003c\u003c uint64(32)) | uint64(size)",
+      "  return (uint64(pos) \u003c\u003c uint64(32)) | uint64(size)",
       "}",
       ""
     ],

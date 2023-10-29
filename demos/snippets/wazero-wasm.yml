@@ -91,7 +91,7 @@ snippet call hello function:
 
     // Extract the position and size of from result
     valuePosition := uint32(result[0] >> 32)
-    valueSize := uint32(result[0])
+    valueSize := uint32(result[0]) 
 
 snippet display hello result:
   prefix: "wz-07-read-value-from-memory"
@@ -133,10 +133,10 @@ snippet copy buffer to memory:
       bufferPtr := &buffer[0]
       unsafePtr := uintptr(unsafe.Pointer(bufferPtr))
 
-      ptr := uint32(unsafePtr)
+      pos := uint32(unsafePtr)     
       size := uint32(len(buffer))
 
-      return (uint64(ptr) << uint64(32)) | uint64(size)
+      return (uint64(pos) << uint64(32)) | uint64(size)
     }
 
 snippet hello wasm function:
